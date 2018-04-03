@@ -1,5 +1,6 @@
 const gulp = require('gulp'),
       sass = require('gulp-sass'),
+      less = require('gulp-less'),
       browserSync = require('browser-sync'), 
       concat = require('gulp-concat'), 
       uglify = require('gulp-uglifyjs'), 
@@ -12,9 +13,9 @@ const gulp = require('gulp'),
       rename = require('gulp-rename'),
       babel = require('gulp-babel');
 
-gulp.task('sass', function(){ 
-    return gulp.src('app/scss/**/*.scss') 
-        .pipe(sass()) 
+gulp.task('less', function(){ 
+    return gulp.src('app/less/**/*.less') 
+        .pipe(less()) 
         .pipe(autoprefixer({
             browsers: ['last 10 versions', 'ie 11', 'ie 10'], cascade: true }))
         .pipe(gulp.dest('app/css')) 
@@ -40,12 +41,12 @@ gulp.task('browser-sync', function() {
 gulp.task('scripts', function() {
     return gulp.src('app/js/main.js')
         .pipe(babel())
-        .pipe(concat('custom.js')) 
+        .pipe(concat('main.js')) 
         .pipe(gulp.dest('app/js')); 
 });
 
-gulp.task('watch', gulp.parallel('browser-sync', 'sass', 'scripts', function() {
-    gulp.watch('app/scss/**/*.scss', gulp.series('sass'));
+gulp.task('watch', gulp.parallel('browser-sync', 'less', 'scripts', function() {
+    gulp.watch('app/less/**/*.less', gulp.series('less'));
     gulp.watch('app/*.html', browserSync.reload);
     gulp.watch('app/js/**/*.js', browserSync.reload); 
 }));
@@ -65,7 +66,7 @@ gulp.task('img', function() {
         .pipe(gulp.dest('full/img'));
 });
 
-gulp.task('build', gulp.parallel('clean', 'img', 'sass', 'scripts', function() {
+gulp.task('build', gulp.parallel('clean', 'img', 'less', 'scripts', function() {
 
     var buildCss = gulp.src('app/css/*.css')
     .pipe(gulp.dest('full/css'))
