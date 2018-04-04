@@ -205,9 +205,10 @@
   div.maincontent section.videos div hr {
     width: 300px;
   }
-  div.maincontent section.videos div div.videos-items-wrap div p,
-  div.maincontent section.videos div div.videos-items-wrap div h1,
-  div.maincontent section.videos div div.videos-items-wrap div video {
-    margin-left: 70px;
+  div.maincontent section.videos div div.videos-items-wrap {
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+        -ms-flex-pack: center;
+            justify-content: center;
   }
 }
